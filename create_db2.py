@@ -1,19 +1,24 @@
 import os, json, glob, shutil
 from pathlib import Path
 
-from langchain_community.embeddings import GPT4AllEmbeddings
 from langchain_chroma import Chroma
 from langchain.schema import Document
 from tqdm import tqdm   # solo per progress bar
 
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
+
+
+os.environ['GEMINI_API_KEYS'] = 'AIzaSyBUMXx4ceUhKJanUduKzWrmNauxrYooIIc'
+
+
+
 DATA_JSON = Path("data_sources/output_with_contact.json")       # unico file
 CHROMA_DIR = Path("chroma")
 
-EMBEDDINGS = GPT4AllEmbeddings(
-    model_name="all-MiniLM-L6-v2.gguf2.f16.gguf",
-    gpt4all_kwargs={"allow_download": "True"},
+EMBEDDINGS = GoogleGenerativeAIEmbeddings(
+    model="models/embedding-001",
+    google_api_key=os.environ["GEMINI_API_KEYS"]
 )
-
 NUMERIC_KEYS = {
     "length", "width", "price", "seats", "year",
     "max_speed", "cruising_speed", "draft", "weight",

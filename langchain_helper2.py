@@ -11,6 +11,8 @@ import os, re
 from dotenv import load_dotenv
 from typing import Sequence
 from typing_extensions import Annotated, TypedDict
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
+
 
 from langchain_chroma import Chroma
 from langchain_community.embeddings import GPT4AllEmbeddings
@@ -51,9 +53,9 @@ CHROMA_PATH = "chroma"
 os.environ['GEMINI_API_KEYS'] = 'AIzaSyBUMXx4ceUhKJanUduKzWrmNauxrYooIIc'
 
 
-embeddings = GPT4AllEmbeddings(
-    model_name="all-MiniLM-L6-v2.gguf2.f16.gguf",
-    gpt4all_kwargs={"allow_download": "True"},
+embeddings = GoogleGenerativeAIEmbeddings(
+    model="models/embedding-001",
+    google_api_key=os.environ["GEMINI_API_KEYS"]
 )
 
 db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embeddings)
@@ -163,4 +165,4 @@ def execute_user_query(query: str) -> str:
     return app.invoke({"input": query}, config={"configurable": {"thread_id": "1"}})["answer"]
 
 if __name__ == "__main__":
-     execute_user_query(query_text)
+     print(execute_user_query("barche sotto i 500k euro "))
