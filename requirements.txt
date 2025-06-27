@@ -1,5 +1,4 @@
-polars
-rich
-python-dotenv
-google-generativeai
-stremlit
+polars==0.20.16
+rich==13.7.1
+python-dotenv==1.0.1
+google-generativeai==0.4.1
