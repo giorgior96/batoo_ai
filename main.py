@@ -66,12 +66,12 @@ if query := st.chat_input("Fai una domanda sulle barche..."):
 
     # process via backend
     with st.spinner("Batoo sta pensando…"):
-        expr = backend.get_polars_expression(query, df_head_str)
-        st.success("Espressione generata")
-        result = eval(expr, {}, {"df": df, "pl": pl})
-        st.success("Risultati calcolati")
+      
+
         try:
+            st.write("🔍 Passo 1: chiamata a `query_boats`...")
             expr, results, columns = backend.query_boats(df, query)
+            st.write("✅ Espressione ottenuta:", expr)
         except Exception as e:
             answer = f"Si è verificato un errore: {e}"
         else:
