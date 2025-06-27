@@ -44,9 +44,9 @@ def load_dataset(fp: str | Path = "output_with_contact.json") -> pl.DataFrame:
     data = json.loads(Path(fp).read_text(encoding="utf-8"))
     return pl.DataFrame(data)
 
-def get_polars_expression(query: str, df_sample: str, model: str = "gemini-1.5-flash-latest") -> str:
+def get_polars_expression(query: str, df_sample: str, model: str = "gemini-2.5-flash") -> str:
     prompt = PROMPT_TEMPLATE.format(df_str=df_sample, instructions=INSTRUCTION_STR, query=query)
-    st.write("🧠 Prompt creato. Invio richiesta a Gemini...")
+    st.write("🧠 Prompt creato. Invio richiesta a Batoo...")
     model_obj = genai.GenerativeModel(model)
     resp = model_obj.generate_content(prompt, generation_config={"temperature": 0})
     st.write("✅ Risposta ricevuta da Gemini")
@@ -61,7 +61,7 @@ def extract_cols(expr: str) -> List[str]:
     cols.update(re.findall(r"df\\[ ?['\"]([^'\"]+)['\"] ?\\]", expr))
     return list(cols)
 
-def query_boats(df: pl.DataFrame, query: str, model: str = "gemini-1.5-flash-latest") -> Tuple[str, pl.DataFrame, List[str]]:
+def query_boats(df: pl.DataFrame, query: str, model: str = "gemini-2.5-flash") -> Tuple[str, pl.DataFrame, List[str]]:
     df_head_str = df.head().to_pandas().to_string(index=False)
     expr = get_polars_expression(query, df_head_str, model)
     #st.code(expr, language="python")
