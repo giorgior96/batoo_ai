@@ -127,8 +127,7 @@ def bullets(df: pl.DataFrame, cols: List[str]):
 ###############################################################################
 
 def main():
-    load_dotenv()
-    os.environ['GEMINI_API_KEYS'] = 'AIzaSyBUMXx4ceUhKJanUduKzWrmNauxrYooIIc'
+    
 
     api_key = os.getenv("GEMINI_API_KEYS")
     if not api_key:
