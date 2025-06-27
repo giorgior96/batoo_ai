@@ -64,7 +64,7 @@ def extract_cols(expr: str) -> List[str]:
 def query_boats(df: pl.DataFrame, query: str, model: str = "gemini-1.5-flash-latest") -> Tuple[str, pl.DataFrame, List[str]]:
     df_head_str = df.head().to_pandas().to_string(index=False)
     expr = get_polars_expression(query, df_head_str, model)
-    st.code(expr, language="python")
+    #st.code(expr, language="python")
     local_ns = {"df": df, "pl": pl}
     res = eval(expr, {}, local_ns)
     if isinstance(res, pl.LazyFrame):
