@@ -69,7 +69,7 @@ PROMPT_TEMPLATE = (
 # 3. Gemini helper                                                           #
 ###############################################################################
 
-def get_polars_expression(query: str, df_sample: str, model: str = "gemini-1.5-flash-latest") -> str:
+def get_polars_expression(query: str, df_sample: str, model: str = "gemini-2.5-flash") -> str:
     prompt = PROMPT_TEMPLATE.format(df_str=df_sample, instructions=INSTRUCTION_STR, query=query)
     model_obj = genai.GenerativeModel(model)
     resp = model_obj.generate_content(prompt, generation_config={"temperature": 0})
