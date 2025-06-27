@@ -66,7 +66,7 @@ if query := st.chat_input("Fai una domanda sulle barche..."):
 
     # process via backend
     with st.spinner("Batoo sta pensando…"):
-        expr = get_polars_expression(query, df_head_str)
+        expr = backed.get_polars_expression(query, df_head_str)
         st.success("Espressione generata")
         result = eval(expr, {}, {"df": df, "pl": pl})
         st.success("Risultati calcolati")
